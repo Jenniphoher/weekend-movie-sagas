@@ -21,7 +21,7 @@ else {
     let databaseName = 'saga_movies_weekend'
     
     if (process.env.NODE_ENV === 'test') {
-      databaseName = 'prime_testing'
+        databaseName = 'prime_testing'
     }
 
     pool = new pg.Pool({

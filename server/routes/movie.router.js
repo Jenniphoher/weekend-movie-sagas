@@ -9,6 +9,7 @@ router.get('/', (req, res) => {
   `;
   pool.query(query)
     .then(result => {
+      console.log('GET movies sent:', result.rows);
       res.send(result.rows);
     })
     .catch(err => {
