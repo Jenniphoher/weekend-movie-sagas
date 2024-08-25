@@ -68,4 +68,28 @@ router.post('/', (req, res) => {
     })
 })
 
+router.get('/id', (req, res) => {
+  const id = req.params.id;
+  const sqlText = `
+  
+  SELECT "title", "poster", "description", movies_genres.genre_id, movies_genres.movie_id, genres.name FROM "movies"
+	JOIN "movies_genres"
+		ON movies.id = movies_genres.movie_id
+	JOIN "genres"
+		ON movies_genres.genre_id = genres.id
+  WHERE movies.id = $1;
+  
+  `
+  const sqlValue = [id]
+  pool.query(sqlText, sqlValue)
+  .then((result) => {
+    console.log('Server GET movie detail:', result.rows);
+    res.send(result.rows);
+  }) .catch((err) => {
+    console.log('Server GET movie details:', err);
+    res.sendStatus(500);
+  })
+
+})
+
 module.exports = router;
