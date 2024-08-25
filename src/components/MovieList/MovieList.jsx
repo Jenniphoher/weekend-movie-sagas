@@ -15,14 +15,15 @@ function MovieList() {
 
   return (
     <main>
-      <h1>MovieList</h1>
+      <h2>MovieList</h2>
       <section className="movies">
 
         {movies.map(movie => {
           return (
             <div data-testid='movieItem' key={movie.id}>
               <h3>{movie.title}</h3>
-              <img src={movie.poster} 
+              <img data-testid="toDetails"
+                    src={movie.poster} 
                     alt={movie.title}
                     onClick={() => {
                       history.push(`/movies/${movie.id}`)
@@ -30,7 +31,7 @@ function MovieList() {
             </div>
           );
         })}
-        
+
       </section>
     </main>
   );
