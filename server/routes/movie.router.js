@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
   `;
   pool.query(query)
     .then(result => {
-      console.log('GET movies sent:', result.rows);
+      // console.log('GET movies sent:', result.rows);
       res.send(result.rows);
     })
     .catch(err => {
@@ -20,7 +20,7 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   // RETURNING "id" will give us back the id of the created movie
   const insertMovieQuery = `
     INSERT INTO "movies" 
@@ -68,7 +68,7 @@ router.post('/', (req, res) => {
     })
 })
 
-router.get('/id', (req, res) => {
+router.get('/:id', (req, res) => {
   const id = req.params.id;
   const sqlText = `
   
@@ -83,8 +83,9 @@ router.get('/id', (req, res) => {
   const sqlValue = [id]
   pool.query(sqlText, sqlValue)
   .then((result) => {
-    console.log('Server GET movie detail:', result.rows);
-    res.send(result.rows);
+    // console.log('Server GET movie detail:', result.rows);
+
+    res.send(movieIdArray(result.rows));
   }) .catch((err) => {
     console.log('Server GET movie details:', err);
     res.sendStatus(500);
@@ -93,3 +94,22 @@ router.get('/id', (req, res) => {
 })
 
 module.exports = router;
+
+const movieIdArray = (array) => {
+  let movieObj = {}
+
+  movieObj.title = array[0].title;
+  movieObj.poster = array[0].poster
+  movieObj.description = array[0].description
+  movieObj.genre_id = []
+  movieObj.movie_id = array[0].movie_id
+  movieObj.name = []
+  
+  for(let obj of array) {
+    movieObj.genre_id.push(obj.genre_id)
+    movieObj.name.push(obj.name)
+  }
+
+  return movieObj;
+
+}
