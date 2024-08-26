@@ -1,6 +1,7 @@
 import { Route, HashRouter as Router } from 'react-router-dom';
 import MovieList from '../MovieList/MovieList';
 import MovieDetails from '../MovieDetails/MovieDetails';
+import MovieForm from '../MovieForm/MovieForm';
 import './App.css';
 
 function App() {
@@ -18,6 +19,9 @@ function App() {
         </Route>
 
         {/* Add Movie page */}
+        <Route exact path='/form' >
+          <MovieForm />
+        </Route>
         
       </Router>
     </div>

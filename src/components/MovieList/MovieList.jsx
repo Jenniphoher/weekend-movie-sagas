@@ -33,6 +33,10 @@ function MovieList() {
         })}
 
       </section>
+
+      <button onClick={() => {
+          history.push('/form');
+        }}>Add Movie</button>
     </main>
   );
 }

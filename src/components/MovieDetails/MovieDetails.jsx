@@ -22,14 +22,12 @@ function MoviesDetails() {
         })
     }
 
-    console.log('MovieDetails data:', movieDetail);
-    console.log('genres is:', genres);
-
     return (
         <div data-testid="movieDetails">
-            {/* <h2>Movie Details</h2> */}
-
+            
             <section className="detail">
+
+                <h2>Movie Details</h2>
 
                 <div data-testid='movieItem' key={movieDetail ? movieDetail.id : ''}>
                 <h3>{movieDetail ? movieDetail.title : ''}</h3>
