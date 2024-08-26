@@ -6,7 +6,8 @@ import { useEffect } from "react";
 function MoviesDetails() {
     const dispatch = useDispatch();
     const history = useHistory();
-    const movies = useSelector(store => store.movies);
+    const movieDetail = useSelector(store => store.movieDetail);
+    const genres = movieDetail.name
     const params = useParams();
     const movieId = params.id;
 
@@ -21,28 +22,31 @@ function MoviesDetails() {
         })
     }
 
-    console.log('MovieDetails data:', movies);
+    console.log('MovieDetails data:', movieDetail);
+    console.log('genres is:', genres);
 
     return (
         <div data-testid="movieDetails">
-            <h2>Movie Details</h2>
+            {/* <h2>Movie Details</h2> */}
 
             <section className="detail">
 
-                <div data-testid='movieItem' key={movies.id}>
-                <h3>{movies.title}</h3>
+                <div data-testid='movieItem' key={movieDetail ? movieDetail.id : ''}>
+                <h3>{movieDetail ? movieDetail.title : ''}</h3>
                 <img 
-                    src={movies.poster} 
-                    alt={movies.title} />
+                    src={movieDetail ? movieDetail.poster : ''} 
+                    alt={movieDetail.title} />
                 
                 <div>
-                    {movies.name.map(genre => {
+                    {!genres ? '' : genres.map(genre => {
                         return (
-                            <span>{genre}</span>
+                            <div key={genres.indexOf(genre)}>
+                                <span>{genre}</span>
+                            </div>
                         )
                     })}
                 </div>
-                <p>{movies.description}</p>
+                <p>{movieDetail ? movieDetail.description : ''}</p>
                 </div>
                 
 

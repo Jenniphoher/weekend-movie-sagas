@@ -17,6 +17,15 @@ const movies = (state = [], action) => {
   }
 }
 
+const movieDetail = (state = [], action) => {
+  switch (action.type) {
+    case 'SET_DETAIL':
+      return action.payload;
+    default:
+      return state;
+  }
+}
+
 // ------------ SET_GENRES:
 const genres = (state = [], action) => {
   switch (action.type) {
@@ -48,13 +57,13 @@ function* fetchAllMovies() {
 
 // ------------ GET movie detail:
 function* fetchMovieDetail(action) {
-  // console.log('SAGA movie detail payload:', action.payload);
+  console.log('SAGA movie detail payload:', action.payload);
   try {
     const movieIdResponse = yield axios.get(`/api/movies/${action.payload}`);
     console.log('Saga GET movie detail:', movieIdResponse.data);
 
     yield put({
-      type: 'SET_MOVIES',
+      type: 'SET_DETAIL',
       payload: movieIdResponse.data
     })
   } catch (error) {
@@ -84,6 +93,7 @@ const storeInstance = createStore(
   combineReducers({
     movies,
     genres,
+    movieDetail
   }),
   applyMiddleware(sagaMiddleware, logger),
 );
